@@ -2,6 +2,7 @@ const TickerToken = artifacts.require('TickerToken.sol');
 
 const totalTokens = 10000;
 const transferTokens = 100;
+const approveTokens = 50;
 
 contract('TickerToken', function (accounts) {
 	let contractInstance;
@@ -111,6 +112,52 @@ contract('TickerToken', function (accounts) {
 					balance.toNumber(),
 					totalTokens - transferTokens,
 					"deducts the tokens from the sender's account"
+				);
+			});
+	});
+
+	it('approves tokens for delegated transfer', function () {
+		return TickerToken.deployed()
+			.then(function (instance) {
+				contractInstance = instance;
+				return contractInstance.approve.call(accounts[1], approveTokens);
+			})
+			.then(function (success) {
+				assert.equal(success, true, 'approval successful');
+				return contractInstance.approve(accounts[1], approveTokens, {
+					from: accounts[0],
+				});
+			})
+			.then(function (receipt) {
+				assert.equal(receipt.logs.length, 1, 'triggers only 1 event');
+				assert.equal(
+					receipt.logs[0].event,
+					'Approval',
+					'is a [Approval] event'
+				);
+				assert.equal(
+					receipt.logs[0].args._owner,
+					accounts[0],
+					'correct owner address'
+				);
+				assert.equal(
+					receipt.logs[0].args._spender,
+					accounts[1],
+					'correct spender address'
+				);
+				assert.equal(
+					receipt.logs[0].args._value,
+					approveTokens,
+					'correct amount approved'
+				);
+
+				return contractInstance.allowance(accounts[0], accounts[1]);
+			})
+			.then(function (allowance) {
+				assert.equal(
+					allowance,
+					approveTokens,
+					'stores the allowance for delegated transfer'
 				);
 			});
 	});
