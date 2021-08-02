@@ -1,0 +1,35 @@
+{
+  "name": "ico-erc-20",
+  "version": "1.0.0",
+  "description": "ICO project for cryptocurrency sale based on EIP-20 standard",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "start": "lite-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nageshnnazare/ICO-ERC-20.git"
+  },
+  "keywords": [
+    "node",
+    "ico",
+    "crypto",
+    "token",
+    "truffle",
+    "eip-20",
+    "erc-20",
+    "ethereum"
+  ],
+  "author": "Nagesh Nazare",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nageshnnazare/ICO-ERC-20/issues"
+  },
+  "homepage": "https://github.com/nageshnnazare/ICO-ERC-20#readme",
+  "dependencies": {
+    "lite-server": "^2.6.1"
+  }
+}
