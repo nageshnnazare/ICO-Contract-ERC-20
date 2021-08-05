@@ -2,6 +2,8 @@
 
 ## Deploying
 
+### Local deployment
+
 Truffle console:
 
 (Truffle v5.3.5)
@@ -19,3 +21,10 @@ Truffle console:
 `truffle(development)> token.transfer(tokenSale.address, tokensAvailable, {from:admin})`
 
 `truffle(development)> token.balanceOf(tokenSale.address)`
+
+### Rinkeby Test Network deployment
+
+`geth --rinkeby --rpc --rpcapi="personal,eth,network,web3,net" --ipcpath="~/library/Ethereum/geth.ipc"`
+
+To create a new account:
+`geth --rinkeby account new`
